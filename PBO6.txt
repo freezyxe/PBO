@@ -1,0 +1,167 @@
+Microsoft Windows [Version 10.0.26100.6584]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Fizi>cd
+C:\Users\Fizi
+
+C:\Users\Fizi>cd/xampp/mysql/bin
+
+C:\xampp\mysql\bin>mysql -uroot
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| basisdata_xirpl    |
+| buku_nasional_db   |
+| data_mahasiswa     |
+| information_schema |
+| laptop             |
+| mysql              |
+| pegawai_negri      |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| tugas_basisdata_1  |
++--------------------+
+11 rows in set (0.052 sec)
+
+MariaDB [(none)]> create database kampus;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use kampus
+Database changed
+MariaDB [kampus]> create table kampus(
+    -> id int(11) primary key,
+    -> NPM varchar(35),
+    -> Nama_Mahasiswa varchar (50),
+    -> KD_MK varchar(12),
+    -> Nama_MK varchar(20),
+    -> UTS int(12),
+    -> UAS int(12)
+    -> );
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [kampus]> desc kampus;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| id             | int(11)     | NO   | PRI | NULL    |       |
+| NPM            | varchar(35) | YES  |     | NULL    |       |
+| Nama_Mahasiswa | varchar(50) | YES  |     | NULL    |       |
+| KD_MK          | varchar(12) | YES  |     | NULL    |       |
+| Nama_MK        | varchar(20) | YES  |     | NULL    |       |
+| UTS            | int(12)     | YES  |     | NULL    |       |
+| UAS            | int(12)     | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+7 rows in set (0.019 sec)
+
+MariaDB [kampus]> insert into kampus values
+    -> (1,'1012005176','Kartika Rahma','KK021','Sistem Informasi','75','80'),
+    -> (2,'1012005179','Ahmad Rafii','KD132','Bahasa Inggris','90','95'),
+    -> (3,'1012005224','Ahmad Maulana','KK021','Sistem Informasi','55','60'),
+    -> (4,'1012005239','Mirnawati',' KU122','Pancasila','90','80'),
+    -> (5,'1012005242','Ekka Supitri','KU122','Pancasila','75','85'),
+    -> (6,'1012005243','Abdul Azis','KD132','Bahasa Inggris','90','0'),
+    -> (7,'1012005244','Devi Aprianti','KD132','Bahasa Inggris','45','40');
+Query OK, 7 rows affected (0.048 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [kampus]> select * from kampus;
++----+------------+----------------+--------+------------------+------+------+
+| id | NPM        | Nama_Mahasiswa | KD_MK  | Nama_MK          | UTS  | UAS  |
++----+------------+----------------+--------+------------------+------+------+
+|  1 | 1012005176 | Kartika Rahma  | KK021  | Sistem Informasi |   75 |   80 |
+|  2 | 1012005179 | Ahmad Rafii    | KD132  | Bahasa Inggris   |   90 |   95 |
+|  3 | 1012005224 | Ahmad Maulana  | KK021  | Sistem Informasi |   55 |   60 |
+|  4 | 1012005239 | Mirnawati      |  KU122 | Pancasila        |   90 |   80 |
+|  5 | 1012005242 | Ekka Supitri   | KU122  | Pancasila        |   75 |   85 |
+|  6 | 1012005243 | Abdul Azis     | KD132  | Bahasa Inggris   |   90 |    0 |
+|  7 | 1012005244 | Devi Aprianti  | KD132  | Bahasa Inggris   |   45 |   40 |
++----+------------+----------------+--------+------------------+------+------+
+7 rows in set (0.001 sec)
+
+MariaDB [kampus]> select avg(UTS) rata_rata_UTS from kampus;
++---------------+
+| rata_rata_UTS |
++---------------+
+|       74.2857 |
++---------------+
+1 row in set (0.001 sec)
+
+MariaDB [kampus]> select sum(UAS) total_nilai_UAS from kampus;
++-----------------+
+| total_nilai_UAS |
++-----------------+
+|             440 |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [kampus]> select min(UAS) nilai_terendah from kampus;
++----------------+
+| nilai_terendah |
++----------------+
+|              0 |
++----------------+
+1 row in set (0.000 sec)
+
+MariaDB [kampus]> select max(UAS) nilai_tertinggi from kampus;
++-----------------+
+| nilai_tertinggi |
++-----------------+
+|              95 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [kampus]> select count(*) from kampus;
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [kampus]> select avg(UAS), sum(UAS) from kampus where KD_MK = 'KU132';
++----------+----------+
+| avg(UAS) | sum(UAS) |
++----------+----------+
+|     NULL |     NULL |
++----------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [kampus]> select avg(UAS), sum(UAS) from kampus where KD_MK = 'KD132';
++----------+----------+
+| avg(UAS) | sum(UAS) |
++----------+----------+
+|  45.0000 |      135 |
++----------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [kampus]> select count(*) from kampus;
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [kampus]> select * from kampus;
++----+------------+----------------+--------+------------------+------+------+
+| id | NPM        | Nama_Mahasiswa | KD_MK  | Nama_MK          | UTS  | UAS  |
++----+------------+----------------+--------+------------------+------+------+
+|  1 | 1012005176 | Kartika Rahma  | KK021  | Sistem Informasi |   75 |   80 |
+|  2 | 1012005179 | Ahmad Rafii    | KD132  | Bahasa Inggris   |   90 |   95 |
+|  3 | 1012005224 | Ahmad Maulana  | KK021  | Sistem Informasi |   55 |   60 |
+|  4 | 1012005239 | Mirnawati      |  KU122 | Pancasila        |   90 |   80 |
+|  5 | 1012005242 | Ekka Supitri   | KU122  | Pancasila        |   75 |   85 |
+|  6 | 1012005243 | Abdul Azis     | KD132  | Bahasa Inggris   |   90 |    0 |
+|  7 | 1012005244 | Devi Aprianti  | KD132  | Bahasa Inggris   |   45 |   40 |
++----+------------+----------------+--------+------------------+------+------+
+7 rows in set (0.000 sec)
